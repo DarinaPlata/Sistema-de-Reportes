@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reportes</title>
+    <link rel="stylesheet" href="CSS/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Krub:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="CSS/styles.css" as="styles">
+    <link href="CSS/styles.css" rel="stylesheet">
+</head>
+<body>
+    <section class="hero"> </section>
+     <div class="contenido-hero">
+        <nav class="navegacion-principal contenedor">
+            <img src="img/escudo.jpg">
+        <h2>Centro Universitario UAEM Atlacomulco</h2>
+        </nav>
+     </div>
+    </section>
+
+    <section>
+        <h1 class="titulo">Centro de Reportes de Salas de Cómputo</h1>
+
+    </section>
+
+    <main>
+        <form id="reporteForm">
+            <fieldset>
+                <legend>Registro del reporte</legend>
+                <div>
+                    <label>No. Sala</label>
+                    <input type="number" id="sala" placeholder="Sala">
+                </div>
+
+                <div>
+                    <label>No. de equipo</label>
+                    <input type="number" id="equipo" placeholder="Equipo">
+                </div>
+
+                <div>
+                    <label>Fecha</label>
+                    <input type="date" id="fecha" placeholder="Fecha">
+                </div>
+
+                <div>
+                    <label>Describe el problema</label>
+                    <textarea id="problema"></textarea>
+                </div>
+
+                <input type="submit" value="Enviar">
+            </fieldset>
+        </form>
+    </main>
+
+    <footer>
+        <p>Universidad Autónoma del Estado de México</p>
+        <p>Derechos Reservados 2024. Desarrollado por Darina Plata</p>
+    </footer>
+
+    <script>
+        document.getElementById('reporteForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el envío del formulario
+    
+            // Capturar los valores del formulario
+            const reporte = {
+                sala: document.getElementById('sala').value,
+                equipo: document.getElementById('equipo').value,
+                fecha: document.getElementById('fecha').value,
+                problema: document.getElementById('problema').value,
+                id: Date.now() // Generar un ID único basado en la fecha actual
+            };
+    
+            // Obtener el arreglo de reportes del Local Storage o crear uno nuevo
+            const reportesGuardados = JSON.parse(localStorage.getItem('reportes')) || [];
+            reportesGuardados.push(reporte); // Agregar el nuevo reporte al arreglo
+    
+            // Guardar el arreglo actualizado en Local Storage
+            localStorage.setItem('reportes', JSON.stringify(reportesGuardados));
+    
+            // Notificar al usuario y limpiar el formulario
+            alert('El reporte ha sido guardado exitosamente.');
+            document.getElementById('reporteForm').reset();
+        });
+    </script>
+    
+</body>
+</html>

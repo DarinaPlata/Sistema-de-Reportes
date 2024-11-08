@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Reportes</title>
+    <link rel="stylesheet" href="CSS/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="CSS/styles.css" as="styles">
+    <link href="CSS/styles.css" rel="stylesheet">
+
+    <style>
+        /* Estructura de página para mantener el pie de página al fondo */
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Krub', sans-serif;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Estilo del contenedor principal para reportes */
+        #reporteVisualizacion {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-height: 300px;
+        }
+
+        /* Estilo de la tarjeta de cada reporte */
+        .reporte-tarjeta {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .reporte-tarjeta h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .reporte-tarjeta p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .reporte-tarjeta button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .reporte-tarjeta button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo del mensaje cuando no hay reportes */
+        .mensaje-vacio {
+            text-align: center;
+            color: #888;
+            font-size: 1.2em;
+        }
+
+        /* Pie de página */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero"></section>
+    <div class="contenido-hero">
+        <nav class="navegacion-principal contenedor">
+            <img src="img/escudo.jpg">
+            <h2>Centro Universitario UAEM Atlacomulco</h2>
+        </nav>
+    </div>
+
+    <section>
+        <h1 class="titulo">Visualización de reportes</h1>
+    </section>
+
+    <main>
+        <div id="reporteVisualizacion">
+            <!-- Los reportes o mensaje de vacío aparecerán aquí -->
+        </div>
+    </main>
+
+    <footer>
+        <p>Universidad Autónoma del Estado DE México</p>
+        <p>Derechos Reservados 2024. Desarrollado por Darina Plata</p>
+    </footer>
+
+    <script>
+        function cargarReportes() {
+            // Obtener el arreglo de reportes del Local Storage
+            const reportesGuardados = JSON.parse(localStorage.getItem('reportes')) || [];
+            
+            const contenedor = document.getElementById('reporteVisualizacion');
+            contenedor.innerHTML = ''; // Limpiar contenido anterior
+
+            if (reportesGuardados.length === 0) {
+                // Mostrar mensaje si no hay reportes
+                contenedor.innerHTML = `<p class="mensaje-vacio">No hay reportes guardados.</p>`;
+                return;
+            }
+
+            reportesGuardados.forEach((reporte, index) => {
+                // Crear la tarjeta de cada reporte
+                const reporteHTML = document.createElement('div');
+                reporteHTML.classList.add('reporte-tarjeta');
+                reporteHTML.innerHTML = `
+                    <h2>Reporte ${index + 1}</h2>
+                    <p><strong>No. Sala:</strong> ${reporte.sala}</p>
+                    <p><strong>No. de Equipo:</strong> ${reporte.equipo}</p>
+                    <p><strong>Fecha:</strong> ${reporte.fecha}</p>
+                    <p><strong>Descripción del Problema:</strong> ${reporte.problema}</p>
+                    <button onclick="eliminarReporte(${reporte.id})">Marcar como Revisado</button>
+                `;
+                contenedor.appendChild(reporteHTML);
+            });
+        }
+
+        function eliminarReporte(id) {
+            // Obtener los reportes actuales
+            let reportesGuardados = JSON.parse(localStorage.getItem('reportes')) || [];
+            
+            // Filtrar los reportes para eliminar el que tiene el ID especificado
+            reportesGuardados = reportesGuardados.filter(reporte => reporte.id !== id);
+            
+            // Guardar el arreglo actualizado en Local Storage
+            localStorage.setItem('reportes', JSON.stringify(reportesGuardados));
+
+            // Recargar la visualización
+            cargarReportes();
+        }
+
+        // Cargar los reportes al abrir la página
+        cargarReportes();
+    </script>
+</body>
+</html>

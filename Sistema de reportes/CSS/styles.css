@@ -1,0 +1,139 @@
+:root {
+    --blanco: #ffffff; 
+    --oscuro: #212121;
+    --primario: rgb(5, 133, 5);
+    --secundario: #fffb00; 
+    --gris: #812f2f; 
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    font-size: 16px;
+    font-family: 'Krub', sans-serif;
+}
+h2 {
+    text-align: center;
+    font-size: 3.8rem;
+    color: var(--oscuro);
+}
+.titulo {
+    text-align: center;
+    font-size: 3.8rem;
+    font-family: 'Krub', sans-serif;
+    font-weight: 400;
+}
+.contenedor {
+    width: 120rem;
+    margin: 0 auto;
+}
+.navegacion-principal {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    padding: 1rem;
+    gap: 2rem; /* Espaciado entre elementos */
+}
+.navegacion-principal img {
+    height: 80px; /* Ajusta el tamaño de la imagen */
+    width: auto;
+    margin-right: auto; /* Mueve la imagen hacia la izquierda */
+}
+.navegacion-principal h2 {
+    font-size: 2.4rem;
+    color: var(--oscuro);
+    margin: 0 auto;
+    text-align: center;
+    flex-grow: 1; /* Permite que el título se centre en el espacio */
+}
+/* Estilos para el formulario */
+form {
+    max-width: 60rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--blanco);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+fieldset {
+    border: 1px solid var(--gris);
+    padding: 2rem;
+    border-radius: 5px;
+}
+
+legend {
+    font-size: 2.4rem;
+    color: var(--oscuro);
+    padding: 0 1rem;
+}
+
+label {
+    font-size: 1.6rem;
+    color: var(--oscuro);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    border: 1px solid var(--gris);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    height: 10rem;
+}
+
+input[type="submit"] {
+    background-color: var(--primario);
+    color: var(--blanco);
+    font-size: 1.8rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--secundario);
+    color: var(--oscuro);
+}
+footer {
+    background-image: url(../img/piedepagina.jpg); /* Ruta de la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen para que cubra todo el footer */
+    background-position: center;
+    padding: 2rem 0;
+    color: var(--blanco); /* Color blanco para el texto */
+    text-align: center;
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+footer p:last-child {
+    font-weight: bold; /* Resalta el texto del desarrollador */
+    font-size: 1.6rem;
+}
